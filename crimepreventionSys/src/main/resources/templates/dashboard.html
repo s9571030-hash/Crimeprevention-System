@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Crime Prevention Dashboard</title>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-dark bg-danger mb-4">
+    <div class="container">
+        <span class="navbar-brand">Community Watch - Safety First</span>
+        <a th:href="@{/reports/new}" class="btn btn-light text-danger font-weight-bold">Report Incident</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 class="mb-4 text-secondary">Recent Alerts in Your Area</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3" th:each="report : ${reports}">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <span class="badge bg-warning text-dark mb-2" th:text="${report.category}">Category</span>
+                    <h5 class="card-title" th:text="${report.title}">Title</h5>
+                    <p class="text-muted small" th:text="'Location: ' + ${report.area}"></p>
+                    <p class="card-text" th:text="${report.description}"></p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-secondary" th:text="${#temporals.format(report.reportedAt, 'dd-MM-yyyy HH:mm')}"></small>
+                        <span class="badge bg-info" th:text="${report.status}">Status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
